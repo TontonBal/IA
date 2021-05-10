@@ -1,0 +1,58 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - info_pole
+  - info_description_pole
+  - ty
+
+entities:
+  - ACS
+  - Calcul
+  - Sciences des données
+  - Signal & image
+  - pole
+
+slots:
+  pole:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+
+responses:
+  utter_greet:
+  - text: "Bonjour, puis-je vous renseigner ?"
+
+  utter_ty:
+    - text: "Avec plaisirs"
+
+#  utter_cheer_up:
+#  - text: "Here is something to cheer you up:"
+#    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+#  utter_did_that_help:
+#  - text: "Did that help you?"
+
+#  utter_happy:
+#  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Au revoir !"
+
+  utter_iamabot:
+  - text: "Je suis un bot, powered by Rasa."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+actions:
+  - info_pole_action
+  - info_pole_particulier_action

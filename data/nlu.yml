@@ -1,0 +1,94 @@
+version: "2.0"
+
+nlu:
+
+- intent: info_pole
+  examples: |
+    - Combien y a-t-il de pole au LiS ?
+    - Quel sont les différents poles au LiS ?
+    - poles ?
+
+- intent: info_description_pole
+  examples: |
+    - Que fait le pôle [ACS](pole) ?
+    - Pouvez vous me décrire ce que fait le pole [Calcul](pole) ?
+    - Je recherche des information sur le pole [ACS](pole).
+
+- intent: inform
+  examples: |
+    - [ACS](pole)
+    - [Sciences des données](pole)
+    - [Signal & Image](pole)
+    - [Calcul](pole)
+
+
+- intent: greet
+  examples: |
+    - hey
+    - bonjour
+    - salut
+    - salut toi
+    - bonsoir
+    - c'est partie
+    - yo
+
+- intent: goodbye
+  examples: |
+    - bon aprem
+    - cu
+    - au revoir
+    - bye
+    - bonne nuit
+    - bye
+    - goodbye
+    - salut
+    - a bientôt
+    - bye bye
+    - a plus
+    - ciao
+
+- intent: affirm
+  examples: |
+    - oui
+    - y
+    - en effet
+    - bien sûr
+    - ok
+    - correcte
+    - dac
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - jamais
+    - je ne pense pas
+    - je n'aime pas ça
+    - impossible
+    - pas vraiment
+
+- intent: mood_great
+  examples: |
+    - parfait
+    - super
+    - génial
+    - je me sens bien
+    - ca va
+
+- intent: mood_unhappy
+  examples: |
+    - je ne suis pas bien
+    - je suis triste
+
+- intent: bot_challenge
+  examples: |
+    - es-tu un bot ?
+    - es-tu un humain ?
+    - je parle à un bot ?
+    - je parle à un humain ?
+
+- intent: ty
+  examples: |
+    - merci
+    - je vous remercie
+    - super merci beaucoup
