@@ -2,6 +2,13 @@ version: "2.0"
 
 nlu:
 
+- intent: info_composantes
+  examples: |
+    - Quels sont les composantes du lis ?
+    - Quels etablissements sont en relation avec le lis ?
+    - Qui est en relation avec le LiS ?
+    - Quelles composantes ?
+
 - intent: info_pole
   examples: |
     - Combien y a-t-il de pole au LiS ?

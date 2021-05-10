@@ -2,6 +2,11 @@ version: "2.0"
 
 stories:
 
+- story: information composantes
+  steps:
+  - intent: info_composantes
+  - action: info_composantes_action
+
 - story: information pole
   steps:
   - intent: info_description_pole

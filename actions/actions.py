@@ -40,7 +40,7 @@ class InfoPoleParticulierAction(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        c = create_connection(db_file="/home/tontonbal/PycharmProjects/ChatBot/db/lis_db")
+        c = create_connection(db_file="/home/tontonbal/PycharmProjects/IA/db/lis_db")
         cur = c.cursor()
         slot_name = "Nom"
         slot_value = fusy_matching(c, slot_name, tracker.get_slot("pole"))
@@ -51,6 +51,24 @@ class InfoPoleParticulierAction(Action):
             dispatcher.utter_message(str(get_result))
         return []
 
+class InfoComposantes(Action):
+
+    def name(self) -> Text:
+        return "info_composantes_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        c = create_connection(db_file="/home/tontonbal/PycharmProjects/IA/db/lis_db")
+        cur = c.cursor()
+        cur.execute(f"SELECT * FROM composantes")
+        rows = cur.fetchall()
+        get_result = ""
+        for row in rows:
+            get_result = get_result + row[0] + ", "
+        get_result = f"Les composantes du LiS sont : {get_result}"
+        dispatcher.utter_message(str(get_result))
+        return []
 
 # Entrée : prend les différentes valeur des colonnes de la DB, ainsi qu'une input.
 # Retourne la valeur la de la colonne la plus proche lexicalement de l'input

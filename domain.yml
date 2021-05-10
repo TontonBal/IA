@@ -11,6 +11,7 @@ intents:
   - info_pole
   - info_description_pole
   - ty
+  - info_composantes
 
 entities:
   - ACS
@@ -56,3 +57,4 @@ session_config:
 actions:
   - info_pole_action
   - info_pole_particulier_action
+  - info_composantes_action
