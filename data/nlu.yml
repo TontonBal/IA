@@ -2,6 +2,10 @@ version: "2.0"
 
 nlu:
 
+- intent: test_image
+  examples: |
+    - je voudrais test une image
+
 - intent: info_composantes
   examples: |
     - Quels sont les composantes du lis ?

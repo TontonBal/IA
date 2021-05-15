@@ -12,6 +12,7 @@ intents:
   - info_description_pole
   - ty
   - info_composantes
+  - test_image
 
 entities:
   - ACS
@@ -38,9 +39,9 @@ responses:
   utter_ty:
     - text: "Avec plaisirs"
 
-#  utter_cheer_up:
-#  - text: "Here is something to cheer you up:"
-#    image: "https://i.imgur.com/nGF1K8f.jpg"
+  utter_test_image:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
 
 #  utter_did_that_help:
 #  - text: "Did that help you?"
