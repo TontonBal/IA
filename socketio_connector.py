@@ -5,11 +5,13 @@ from sanic.request import Request
 from socketio import AsyncServer
 from typing import Optional, Text, Any, List, Dict, Iterable
 
+import wave
+# import pyaudio
 from rasa.core.channels.channel import InputChannel
 from rasa.core.channels.channel import UserMessage, OutputChannel
 
-import deepspeech
-from deepspeech import Model
+# import deepspeech
+# from deepspeech import Model
 import scipy.io.wavfile as wav
 
 import os
@@ -76,6 +78,7 @@ logger = logging.getLogger(__name__)
 # ds = load_deepspeech_model()
 # model, ap, MODEL_PATH, CONFIG, use_cuda = load_tts_model()
 tts_client = speech.SpeechClient()
+# p = pyaudio.PyAudio()
 
 
 class SocketBlueprint(Blueprint):
@@ -92,7 +95,7 @@ class SocketBlueprint(Blueprint):
 class SocketIOOutput(OutputChannel):
 
     @classmethod
-    def name(cls):
+    def name(cls) -> Text:
         return "socketio"
 
     def __init__(self, sio, sid, bot_message_evt, message):
@@ -102,12 +105,12 @@ class SocketIOOutput(OutputChannel):
         self.message = message
         self.client = texttospeech.TextToSpeechClient()
         self.voice = texttospeech.VoiceSelectionParams(
-            language_code="fr-FR", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+            language_code="fr-FR", ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
         )
 
         # Select the type of audio file you want returned
         self.audio_config = texttospeech.AudioConfig(
-            audio_encoding=texttospeech.AudioEncoding.WAV
+            audio_encoding=texttospeech.AudioEncoding.LINEAR16
         )
 
     # def tts(self, model, text, CONFIG, use_cuda, ap, OUT_FILE):
@@ -118,12 +121,27 @@ class SocketIOOutput(OutputChannel):
     #     return alignment, spectrogram, stop_tokens, wav_norm
 
     def tts_predict(self, sentence, OUT_FILE):
+        print(sentence)
         wav_norm = self.client.synthesize_speech(
             input=texttospeech.SynthesisInput(text=sentence), voice=self.voice, audio_config=self.audio_config
         )
         with open(OUT_FILE, "wb") as out:
             # Write the response to the output file.
             out.write(wav_norm.audio_content)
+        # out.close()
+        # wf = wave.open(OUT_FILE, 'rb')
+        # data = wf.readframes(1024)
+        # stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
+        #                 channels=wf.getnchannels(),
+        #                 rate=wf.getframerate(),
+        #                 output=True)
+        # while data != '':
+        #     stream.write(data)
+        #     data = wf.readframes(1024)
+        #
+        # stream.close()
+        # p.terminate()
+
         return wav_norm.audio_content
 
     async def _send_audio_message(self, socket_id, response, **kwargs: Any):
@@ -148,7 +166,7 @@ class SocketIOInput(InputChannel):
     """A socket.io input channel."""
 
     @classmethod
-    def name(cls):
+    def name(cls) -> Text:
         return "socketio"
 
     @classmethod
@@ -175,7 +193,8 @@ class SocketIOInput(InputChannel):
         self.socketio_path = socketio_path
 
     def blueprint(self, on_new_message):
-        sio = AsyncServer(async_mode="sanic")
+        # sio = AsyncServer(async_mode="sanic")
+        sio = AsyncServer(async_mode="sanic", cors_allowed_origins='*')
         socketio_webhook = SocketBlueprint(
             sio, self.socketio_path, "socketio_webhook", __name__
         )
@@ -218,9 +237,12 @@ class SocketIOInput(InputChannel):
 
                 urllib.request.urlretrieve(data['message'], received_file)
                 path = os.path.dirname(__file__)
+                with wave.open("output_{0}.wav".format(sid)) as fd:
+                    frames = fd.readframes(1000000)
 
                 fs, audio = wav.read("output_{0}.wav".format(sid))
-                audio = speech.RecognitionAudio(content=audio)
+                print(type(audio))
+                audio = speech.RecognitionAudio(content=frames)
                 config = speech.RecognitionConfig(
                     encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
                     sample_rate_hertz=16000,
@@ -230,9 +252,10 @@ class SocketIOInput(InputChannel):
                 message = ""
                 for result in audio_response.results:
                     message += u"Transcript: {}".format(result.alternatives[0].transcript)
-
+            		
+	
                 await sio.emit(self.user_message_evt, {"text": message}, room=sid)
-
+            print(message)
             message_rasa = UserMessage(message, output_channel, sid,
                                        input_channel=self.name())
             await on_new_message(message_rasa)

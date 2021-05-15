@@ -9,6 +9,7 @@ import sqlite3
 from aifc import Error
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
+from rasa_sdk.events import AllSlotsReset
 from rasa_sdk.executor import CollectingDispatcher
 from fuzzywuzzy import process
 
@@ -43,13 +44,17 @@ class InfoPoleParticulierAction(Action):
         c = create_connection(db_file="/home/tontonbal/PycharmProjects/IA/db/lis_db")
         cur = c.cursor()
         slot_name = "Nom"
+        if not tracker.get_slot('pole'):
+            dispatcher.utter_message("Je suis désolé, je n'ai pas cette information.")
+            return [AllSlotsReset()]
         slot_value = fusy_matching(c, slot_name, tracker.get_slot("pole"))
+
         cur.execute(f"SELECT * FROM table_pole WHERE {slot_name} = '{slot_value}'")
         rows = cur.fetchall()
         for row in rows:
             get_result = f"{row[1]} Le/la responsable du pôle est {row[2]} et le/la co-responsable est {row[3]}"
             dispatcher.utter_message(str(get_result))
-        return []
+        return [AllSlotsReset()]
 
 class InfoComposantes(Action):
 

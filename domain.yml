@@ -17,7 +17,7 @@ entities:
   - ACS
   - Calcul
   - Sciences des données
-  - Signal & image
+  - Signal et image
   - pole
 
 slots:
@@ -28,8 +28,12 @@ slots:
     influence_conversation: false
 
 responses:
+
+  utter_fallback:
+    - text: "Je suis désolé, je ne comprends pas. Pouvez vous reformuler ?"
+
   utter_greet:
-  - text: "Bonjour, puis-je vous renseigner ?"
+    - text: "Bonjour, puis-je vous renseigner ?"
 
   utter_ty:
     - text: "Avec plaisirs"

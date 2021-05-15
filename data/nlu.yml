@@ -20,13 +20,14 @@ nlu:
     - Que fait le pôle [ACS](pole) ?
     - Pouvez vous me décrire ce que fait le pole [Calcul](pole) ?
     - Je recherche des information sur le pole [ACS](pole).
+    - avez vous des information sur le pole [Signal et image](pole) ?
 
-- intent: inform
-  examples: |
-    - [ACS](pole)
-    - [Sciences des données](pole)
-    - [Signal & Image](pole)
-    - [Calcul](pole)
+#- intent: inform
+#  examples: |
+#    - [ACS](pole)
+#    - [Sciences des données](pole)
+#    - [Signal & Image](pole)
+#    - [Calcul](pole)
 
 
 - intent: greet
