@@ -13,6 +13,7 @@ intents:
   - ty
   - info_composantes
   - test_image
+  - info_LIS
 
 entities:
   - ACS
@@ -29,6 +30,11 @@ slots:
     influence_conversation: false
 
 responses:
+
+  utter_info_LIS:
+    - text: "Le LIS mène des recherches fondamentales et appliquées dans les domaines de l’informatique, de l’automatique,
+      du signal et de l’image. Il est composé de 20 équipes de recherche et structuré en 4 pôles : le pôle Calcul,
+      le pôle Sciences des Données, le pôle Analyse et Contrôle des Systèmes et le pôle Signal et Image."
 
   utter_fallback:
     - text: "Je suis désolé, je ne comprends pas. Pouvez vous reformuler ?"
@@ -53,7 +59,7 @@ responses:
   - text: "Au revoir !"
 
   utter_iamabot:
-  - text: "Je suis un bot, powered by Rasa."
+  - text: "Je suis l'assistant vocal du LIS. Vous pouvez me demander des informations sur le laboratoire. N'hésitez pas."
 
 session_config:
   session_expiration_time: 60

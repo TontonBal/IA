@@ -2,6 +2,11 @@ version: "2.0"
 
 stories:
 
+- story: info_general_LIS
+  steps:
+    - intent: info_LIS
+    - action: utter_info_LIS
+
 - story: test_image
   steps:
     - intent: test_image

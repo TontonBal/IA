@@ -6,6 +6,12 @@ nlu:
   examples: |
     - je voudrais test une image
 
+- intent: info_LIS
+  examples: |
+    - Qu'est-ce que le LIS ?
+    - Que fait le LIS exactement ?
+    - C'est quoi le LIS ?
+
 - intent: info_composantes
   examples: |
     - Quels sont les composantes du lis ?
@@ -98,6 +104,8 @@ nlu:
     - es-tu un humain ?
     - je parle à un bot ?
     - je parle à un humain ?
+    - Présentez-vous.
+    - A quoi vous servez ?
 
 - intent: ty
   examples: |
